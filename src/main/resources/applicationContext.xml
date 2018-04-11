@@ -15,7 +15,7 @@
                 scope：singleton bean在容器中为单例  创建容器的时候就去创建bean的实例
                        prototype bean在容器中为非单例  在调用getBean的时候再去创建bean的实例，调用一次创建一次
         -->
-        <bean id="stu1" class="com.kaishengit.entiey.Student"/>
+        <bean id="stu1" class="com.kaishengit.proxy.Student"/>
 
         <bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="false"
               scope="singleton" init-method="init"/>

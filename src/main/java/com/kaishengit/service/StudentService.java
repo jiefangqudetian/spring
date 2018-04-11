@@ -1,7 +1,6 @@
 package com.kaishengit.service;
 
-import com.kaishengit.dao.UserDao;
-import com.kaishengit.entiey.Student;
+import com.kaishengit.proxy.Student;
 
 public class StudentService {
 

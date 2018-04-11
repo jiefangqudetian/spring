@@ -17,8 +17,7 @@ public class UserDaoTestCase {
     public void test(){
         try {
             UserDao userDao = (UserDao) Class.forName("com.kaishengit.dao.UserDao").newInstance();
-            userDao.save();
-            UserDao userDao1 = new UserDao();
+           // UserDao userDao1 = new UserDao("123");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
