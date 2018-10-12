@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+        <!--
+                id：在容器中为bean命名，唯一
+                class：放入容器的bean的完全限定名
+                name：在容器中为bean命名，唯一，支持逗号分隔，如：name="userDao1,userDao2"
+                lazy-init：true 表示在调用getBean的时候再去创建bean的实例，
+                           false表示创建容器的时候就去创建bean的实例
+                scope：singleton bean在容器中为单例  创建容器的时候就去创建bean的实例
+                       prototype bean在容器中为非单例  在调用getBean的时候再去创建bean的实例，调用一次创建一次
+        -->
+        <bean id="stu1" class="com.kaishengit.proxy.Student"/>
+
+        <bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="false"
+              scope="singleton" init-method="init"/>
+
+        <bean id="studentService" class="com.kaishengit.service.StudentService" autowire="byName">
+               <!-- <constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/>-->
+               <!-- <constructor-arg name="userDao1" ref="userDao"/>
+                <constructor-arg name="userDao2" ref="userDao"/>-->
+                <!--<constructor-arg index="0" ref="userDao"/>
+                <constructor-arg index="1" ref="userDao"/>-->
+        </bean>
+
+        <bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao">
+               <constructor-arg name="userDao" ref="userDao"/>
+
+                <!--set注入1
+                <property name="userDao" ref="userDao"/>-->
+
+               <!-- set注入2-->
+               <!-- <property name="userDao" >
+                        <ref bean="userDao"/>
+                </property>-->
+
+                <!--set注入3 没有用容器中的userDao对象而是又新建了一个-->
+                <!--<property name="userDao">
+                        <bean class="com.kaishengit.dao.UserDao"/>
+                </property>-->
+                <!--set注入 基本类型及集合-->
+                <property name="id" value="1"/>
+                <property name="name" value="你好"/>
+                <property name="list">
+                        <list>
+                                <value>王超</value>
+                                <value>马汉</value>
+                        </list>
+                </property>
+                <property name="set">
+                        <set>
+                                <value>张龙</value>
+                                <value>赵虎</value>
+                        </set>
+                </property>
+                <property name="map">
+                        <map>
+                                <entry key="大当家" value="至尊宝"/>
+                                <entry key="二当家" value="猪八戒"/>
+                        </map>
+                </property>
+                <property name="properties">
+                        <props>
+                                <prop key="1">p1</prop>
+                                <prop key="3">p3</prop>
+                                <prop key="2">p2</prop>
+                        </props>
+                </property>
+
+        </bean>
+
+
+        <!--<bean name="userDao1,userDao2" class="com.kaishengit.dao.UserDao"/>-->
+        <!--别名 -->
+        <!--<alias name="userDao" alias="userDao2"/>-->
+</beans>
+

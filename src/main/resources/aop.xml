@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="aopAdvice" class="com.kaishengit.aop.MyAdvice"/>
+    <bean id="mp3" class="com.kaishengit.proxy.Mp3"/>
+    <!--<bean id="userDao" class="com.kaishengit.dao.UserDao"/>-->
+    <aop:config>
+        <aop:aspect ref="aopAdvice">
+            <aop:pointcut id="pointcut" expression="execution(* com.kaishengit.proxy..*.*(..))"/>
+            <aop:before method="beforeAdvice" pointcut-ref="pointcut" />
+            <aop:after-returning method="afterAdvice" pointcut-ref="pointcut" returning="result"/>
+            <aop:after-throwing method="exceptionAdvice" pointcut-ref="pointcut" throwing="e"/>
+            <aop:after method="finallyAdvice" pointcut-ref="pointcut"/>
+            <aop:around method="aroundAdvice" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+   <!-- <aop:config>
+        <aop:aspect ref="aopAdvice">
+            <aop:pointcut id="pointcut" expression="execution(* com.kaishengit.dao..*.*(..))"/>
+            <aop:before method="beforeAdvice" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>-->
+</beans>
